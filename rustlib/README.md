@@ -1,0 +1,4 @@
+# rust project
+```
+nix build
+```

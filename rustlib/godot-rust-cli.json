@@ -1,0 +1,12 @@
+{
+  "name": "rustlib",
+  "cli_version": "0.4.0",
+  "godot_project_dir_name": "gdproject",
+  "is_plugin": false,
+  "platforms": [
+    "windows"
+  ],
+  "modules": [
+    "Spawner"
+  ]
+}

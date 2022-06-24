@@ -1,0 +1,2 @@
+[target.x86_64-pc-windows-gnu]
+image = "godot-rust-cli-platform-windows:v1"
