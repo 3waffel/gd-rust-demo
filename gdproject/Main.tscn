@@ -1,31 +1,98 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://gdnative/spawner.gdns" type="Script" id=1]
+[ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://gdnative/player.gdns" type="Script" id=3]
+[ext_resource path="res://gdnative/enemy.gdns" type="Script" id=4]
+[ext_resource path="res://gdnative/viewport_manager.gdns" type="Script" id=5]
+[ext_resource path="res://gdnative/scene_translator.gdns" type="Script" id=6]
+[ext_resource path="res://Assets/Materials/Cylinder.material" type="Material" id=7]
+
+[sub_resource type="CircleShape2D" id=6]
+
+[sub_resource type="CircleShape2D" id=7]
+
+[sub_resource type="CylinderMesh" id=8]
 
 [sub_resource type="CubeMesh" id=4]
 
-[sub_resource type="ConvexPolygonShape" id=5]
-points = PoolVector3Array( -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, -1 )
-
 [sub_resource type="PlaneMesh" id=3]
 
-[node name="Main" type="Spatial"]
-script = ExtResource( 1 )
+[node name="Main" type="Node2D"]
 
-[node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.966133, 0 )
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+stretch = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Camera" type="Camera" parent="KinematicBody"]
-transform = Transform( 1, 0, 0, 0, 0.753712, 0.657204, 0, -0.657204, 0.753712, 0, 5.17179, 8.27796 )
+[node name="Player" type="KinematicBody2D" parent="ViewportContainer"]
+position = Vector2( 288, 608 )
+script = ExtResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewportContainer/Player"]
+shape = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="ViewportContainer/Player"]
+texture = ExtResource( 2 )
+
+[node name="Enemy" type="KinematicBody2D" parent="ViewportContainer"]
+position = Vector2( 288, 96 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewportContainer/Enemy"]
+shape = SubResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="ViewportContainer/Enemy"]
+texture = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="ViewportContainer/Enemy"]
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 600, 800 )
+handle_input_locally = false
+render_target_update_mode = 3
+gui_disable_input = true
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.431094, 0.902307, 0, -0.902307, 0.431094, 0, 67.7865, 20.9125 )
+current = true
+far = 140.0
+
+[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport"]
+script = ExtResource( 6 )
+
+[node name="Cylinder" type="MeshInstance" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( -5.90104e-07, 13.5, 0, -52.92, -2.31321e-06, 0, 0, 0, 52.92, 0, 0, 0 )
+mesh = SubResource( 8 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 7 )
+
+[node name="Block" type="MeshInstance" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 1.68, 0, 0, 0, 2, 0, 0, 0, 7.92, -7, 56.9661, 15 )
 mesh = SubResource( 4 )
+skeleton = NodePath("")
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
-shape = SubResource( 5 )
+[node name="Block2" type="MeshInstance" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 2.8224, 0, 0, 0, 4, 0, 0, 0, 31.3632, 9, 49, -8 )
+mesh = SubResource( 4 )
+skeleton = NodePath("")
+material/0 = null
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 8.70641, 0, 0, 0, 1, 0, 0, 0, 8.70641, 0, -0.0465598, 0 )
+[node name="Block3" type="MeshInstance" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 2.8224, 0, 0, 0, 4, 0, 0, 0, 25.0906, -1.00001, -50.0338, -3 )
+mesh = SubResource( 4 )
+skeleton = NodePath("")
+material/0 = null
+
+[node name="Plane" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 109.35, 0, 0, 0, 1, 0, 0, 0, 223.163, 0, -0.0465598, 79 )
 mesh = SubResource( 3 )
+skeleton = NodePath("../../..")
 material/0 = null
+
+[node name="Bullet" parent="." instance=ExtResource( 1 )]

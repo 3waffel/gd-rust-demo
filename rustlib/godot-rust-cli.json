@@ -7,6 +7,11 @@
     "windows"
   ],
   "modules": [
-    "Spawner"
+    "Spawner",
+    "Player",
+    "Enemy",
+    "ViewportManager",
+    "Bullet",
+    "SceneTranslator"
   ]
 }
