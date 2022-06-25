@@ -53,7 +53,7 @@
         defaultPackage = packages.x86_64-unknown-linux-gnu;
 
         packages.x86_64-unknown-linux-gnu = naerskBuildPackage "x86_64-unknown-linux-gnu" {
-          src = ./.;
+          src = ./rustlib;
           copyBins = false;
           copyLibs = true;
           release = true;
@@ -75,7 +75,7 @@
         };
 
         packages.x86_64-pc-windows-gnu = naerskBuildPackage "x86_64-pc-windows-gnu" {
-          src = ./.;
+          src = ./rustlib;
           copyBins = false;
           copyLibs = true;
           release = true;
