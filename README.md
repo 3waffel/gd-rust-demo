@@ -12,7 +12,7 @@ cp ./rustlib/target/release/rustlib.dll ./gdproject/gdnative/bin/windows/rustlib
 
 Build with `flake.nix` 
 ```
-nix build ./rustlib#x86_64-pc-windows-gnu
+nix build .#x86_64-pc-windows-gnu
 ```
 Then move the build result to ./gdproject/gdnative/bin/windows/
 
