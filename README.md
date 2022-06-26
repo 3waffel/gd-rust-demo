@@ -12,7 +12,7 @@ cp ./rustlib/target/release/rustlib.dll ./gdproject/gdnative/bin/windows/rustlib
 
 Build with `flake.nix` 
 ```
-nix build .#x86_64-pc-windows-gnu
+nix build .#windows64
 ```
 Then move the build result to ./gdproject/gdnative/bin/windows/
 
@@ -33,6 +33,14 @@ godot-rust-cli build --watch
 Add platform (only few platforms are supported)
 ```
 godot-rust-cli add-platform <platform-name>
+```
+
+## Export the project
+
+```
+godot -v --export "Windows Desktop" build/windows/gdproject.exe --no-window
+
+godot -v --export "Linux/X11" build/linux/gdproject.x86_64 --no-window
 ```
 
 ## Notes 
