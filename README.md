@@ -14,7 +14,6 @@ Build with `flake.nix`
 ```
 nix build .#windows64
 ```
-Then move the build result to ./gdproject/gdnative/bin/windows/
 
 ## `godot-rust-cli` way
 

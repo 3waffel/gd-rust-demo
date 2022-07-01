@@ -28,7 +28,8 @@
       system: let
         pkgs = import nixpkgs {inherit system;};
         inherit (pkgs) lib stdenv;
-        toolchain = with fenix.packages.${system};
+        fenix-pkgs = fenix.packages.${system};
+        toolchain = with fenix-pkgs;
           combine ([
               minimal.rustc
               minimal.cargo
@@ -237,10 +238,10 @@
             buildInputs =
               [
                 # rust
-                cargo
+                fenix-pkgs.minimal.cargo
+                fenix-pkgs.minimal.rustc
+                fenix-pkgs.rust-analyzer
                 cargo-watch
-                rustc
-                rust-analyzer
                 rustfmt
                 rustPackages.clippy
 
